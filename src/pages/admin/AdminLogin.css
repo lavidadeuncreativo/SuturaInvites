@@ -1,0 +1,82 @@
+/* AdminLogin page CSS */
+.login-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-24);
+  position: relative;
+}
+
+.login-page__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.login-card {
+  background: var(--c-ivory);
+  border-radius: var(--r-md);
+  padding: var(--space-40) var(--space-40);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-8);
+}
+
+.login-card__monogram {
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--space-8);
+}
+
+.login-card__couple {
+  font-size: 1.75rem;
+  color: var(--c-deep);
+}
+
+.login-card__title {
+  font-size: 1.125rem;
+  color: var(--c-deep);
+  margin-top: var(--space-4);
+}
+
+.login-card__sub {
+  font-size: 0.875rem;
+  color: var(--c-deep);
+  opacity: 0.5;
+  margin-bottom: var(--space-16);
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  text-align: left;
+}
+
+.login-form .form-label { opacity: 0.6; }
+
+.login-form__btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--space-8);
+}
+
+.login-card__back {
+  margin-top: var(--space-8);
+  color: var(--c-deep);
+  opacity: 0.35;
+  font-size: 0.625rem;
+  transition: opacity var(--dur-fast);
+  text-decoration: none;
+}
+
+.login-card__back:hover { opacity: 0.65; }

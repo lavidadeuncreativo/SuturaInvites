@@ -1,0 +1,123 @@
+.invitation-editor {
+  display: flex;
+  height: calc(100vh - 180px);
+  gap: var(--space-24);
+}
+
+.editor-sidebar {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.editor-tabs {
+  display: flex;
+  background: white;
+  padding: 4px;
+  border-radius: 100px;
+  border: 1px solid rgba(30,16,15,0.05);
+}
+
+.editor-tabs button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  font-size: 0.75rem;
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--c-deep-40);
+}
+
+.editor-tabs button.active {
+  background: var(--c-black);
+  color: white;
+}
+
+.editor-panel {
+  flex: 1;
+  background: white;
+  border-radius: var(--r-lg);
+  padding: var(--space-24);
+  border: 1px solid rgba(30,16,15,0.05);
+}
+
+.editor-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.color-picker-simple {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-picker-simple input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+}
+
+.module-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-ivory-08);
+}
+
+.editor-preview {
+  flex: 1;
+  background: var(--c-stone-200);
+  border-radius: var(--r-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  overflow: hidden;
+}
+
+.preview-container {
+  width: 320px;
+  height: 560px;
+  border-radius: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  border: 8px solid var(--c-black);
+}
+
+.preview-label {
+  position: absolute;
+  top: 20px;
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  opacity: 0.3;
+}
+
+.preview-mod {
+  font-size: 0.65rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 1024px) {
+  .invitation-editor { flex-direction: column; height: auto; }
+  .editor-sidebar { width: 100%; order: 2; }
+  .editor-preview { height: 500px; order: 1; }
+}

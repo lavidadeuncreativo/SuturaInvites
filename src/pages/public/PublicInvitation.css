@@ -1,0 +1,267 @@
+/* PublicInvitation.css - Sutura Luxury Experience */
+
+:root {
+  --lux-bone: #F5F2EA;
+  --lux-charcoal: #1C1917;
+  --lux-gold: #C5A059;
+  --lux-wine: #5B1111;
+  --f-serif: 'Playfair Display', serif;
+}
+
+.invitation-page {
+  background-color: var(--lux-bone);
+  color: var(--lux-charcoal);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── INTRO ── */
+.intro-screen {
+  background-color: var(--lux-charcoal);
+}
+
+/* ── TACTILE ENVELOPE ── */
+.envelope-screen {
+  min-height: 100vh;
+  background-color: #2D2A28;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;
+  overflow: hidden;
+}
+
+.envelope-screen__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.4));
+  pointer-events: none;
+}
+
+.tactile-envelope {
+  position: relative;
+  width: min(400px, 90vw);
+  height: min(280px, 65vw);
+  background: #1C1917;
+  cursor: pointer;
+  transition: all 1.2s cubic-bezier(0.6, 0.05, -0.01, 0.9);
+  box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+
+.envelope-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.envelope-body-outer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.envelope-address {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+}
+
+.envelope-address h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-top: 10px;
+}
+
+.wax-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  color: var(--lux-wine);
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+  transition: all 0.6s ease;
+}
+
+.tactile-envelope:hover .wax-seal {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.envelope-instruction {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.3);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* Opening Animation */
+.tactile-envelope.is-opening {
+  transform: scale(3) rotateX(10deg) translateY(100px);
+  opacity: 0;
+}
+
+/* ── INVITATION HERO ── */
+.invitation-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  position: relative;
+  background-color: var(--lux-bone);
+}
+
+.hero-background-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' opacity='0.5'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 800px;
+}
+
+.monogram-mini {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+}
+
+.invitation-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.8;
+}
+
+.name-line {
+  font-family: var(--f-serif);
+  font-size: clamp(3rem, 15vw, 8rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.name-line:last-child {
+  letter-spacing: 0.1em;
+  font-style: italic;
+  font-family: var(--font-script);
+  text-transform: none;
+  font-size: clamp(4rem, 18vw, 10rem);
+  margin-top: -20px;
+  color: var(--lux-wine);
+}
+
+.ampersand {
+  font-family: var(--font-script);
+  font-size: 4rem;
+  opacity: 0.2;
+}
+
+.hero-details p:first-child {
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.hero-details p:last-child {
+  color: #78716C;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.hero-actions-luxury {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.btn-luxury {
+  background: var(--lux-charcoal);
+  color: white;
+  padding: 18px 40px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-luxury:hover {
+  background: var(--lux-wine);
+  transform: translateY(-2px);
+}
+
+/* ── REVEALS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s cubic-bezier(0.6, 0.05, -0.01, 0.9);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--delay-1 { transition-delay: 0.2s; }
+.reveal--delay-2 { transition-delay: 0.4s; }
+.reveal--delay-3 { transition-delay: 0.6s; }
+.reveal--delay-4 { transition-delay: 0.8s; }
+
+/* ── COUNTDOWN ── */
+.countdown {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.countdown__unit { display: flex; flex-direction: column; gap: 4px; }
+.countdown__number { font-size: 2.5rem; font-family: var(--f-serif); font-weight: 300; }
+.countdown__label { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; }
+
+/* ── AUDIO ── */
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #78716C;
+}
+
+.audio-player__btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #E7E5E4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .invitation-title { gap: 10px; }
+  .name-line { font-size: 3.5rem; }
+  .name-line:last-child { font-size: 5rem; margin-top: 0; }
+  .hero-actions-luxury { flex-direction: column; gap: 24px; }
+}

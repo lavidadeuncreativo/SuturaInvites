@@ -1,0 +1,219 @@
+/* AdminSeating.css Refined */
+
+.seating-pro {
+  display: flex;
+  height: calc(100vh - 180px);
+  gap: var(--space-24);
+  align-items: stretch;
+}
+
+.seating-pro__sidebar {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  padding-right: var(--space-4);
+  overflow-y: auto;
+}
+
+.seating-panel {
+  background: white;
+  padding: var(--space-20);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(30, 16, 15, 0.05);
+}
+
+.seating-templates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+}
+
+.seating-tpl-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--c-ivory-08);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+
+.seating-tpl-btn:hover {
+  background: white;
+  border-color: var(--c-wine);
+  transform: translateY(-2px);
+}
+
+.seating-tpl-btn__shape {
+  width: 24px;
+  height: 24px;
+  background: var(--c-deep-08);
+  border: 1px solid rgba(30, 16, 15, 0.2);
+}
+
+.seating-pro__canvas-wrap {
+  flex: 1;
+  background: #EAE5D5; /* Darker paper for contrast */
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: relative;
+  padding: 40px;
+}
+
+.canvas-zoom-controls {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 100px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.canvas-zoom-controls button:not(.btn) {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(30,16,15,0.1);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.canvas-zoom-controls button:not(.btn):hover {
+  background: var(--c-ivory-08);
+}
+
+.seating-canvas {
+  flex-shrink: 0;
+  background-color: #FDFBFA;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  transform-origin: top left;
+  transition: transform 0.1s ease-out;
+}
+
+.seating-grid-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.seating-el {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: box-shadow var(--dur-fast), border-color var(--dur-fast);
+  border: 1.5px solid transparent;
+}
+
+.seating-el--selected {
+  border-color: var(--c-wine);
+  box-shadow: 0 0 0 4px rgba(77, 12, 18, 0.1);
+  z-index: 100;
+}
+
+.seating-el__info {
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.seating-el__label {
+  font-family: var(--font-sc);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--c-deep);
+}
+
+.seating-el__ms {
+  font-size: 0.5rem;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+/* Chairs */
+.seating-chair {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seating-chair__dot {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border: 1.5px solid rgba(30, 16, 15, 0.2);
+  border-radius: 3px;
+  transition: all var(--dur-fast);
+}
+
+.seating-el--selected .seating-chair__dot {
+  border-color: var(--c-wine);
+}
+
+/* Controls & Legend */
+.seating-controls {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.seating-legend {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.625rem;
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+@media (max-width: 1024px) {
+  .seating-pro { flex-direction: column; height: auto; }
+  .seating-pro__sidebar { width: 100%; order: 2; }
+  .seating-pro__canvas-wrap { height: 500px; order: 1; }
+}
