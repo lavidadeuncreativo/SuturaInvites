@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import '../../components/admin/AdminLayout.css';
 import './AdminSeating.css';
 import { api } from '../../services/api';
-import type { LayoutItem, LayoutItemType, Guest, ElementShape, Chair } from '../../types';
+import type { LayoutItem, LayoutItemType, ElementShape, Chair } from '../../types';
 
 const CM_TO_PX = 0.5; // 1cm = 0.5px (Scale 1:50)
 const GRID = 10; // 20cm grid
@@ -26,7 +26,7 @@ const TEMPLATES: itemTemplate[] = [
   { type: 'bar', label: 'Barra de Bebidas', w_cm: 300, h_cm: 80, shape: 'rect', color: 'rgba(133,90,14,0.08)' },
 ];
 
-function generateChairs(shape: ElementShape, w_cm: number, _h_cm: number, count: number): Chair[] {
+function generateChairs(shape: ElementShape, _w_cm: number, _h_cm: number, count: number): Chair[] {
   const chairs: Chair[] = [];
   if (shape === 'circle') {
     for (let i = 0; i < count; i++) {
@@ -34,8 +34,6 @@ function generateChairs(shape: ElementShape, w_cm: number, _h_cm: number, count:
       chairs.push({ id: `c-${Date.now()}-${i}`, label: `${i + 1}`, rotation: angle });
     }
   } else if (shape === 'rect' || shape === 'square') {
-    // Basic logic for rect: split count between all sides
-    // For now, let's just place them in a line for simplicity or a simple offset
     for (let i = 0; i < count; i++) {
       chairs.push({ id: `c-${Date.now()}-${i}`, label: `${i + 1}`, rotation: 0 });
     }
@@ -47,7 +45,7 @@ export default function AdminSeating() {
   const [items, setItems] = useState<LayoutItem[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [dragging, setDragging] = useState<{ id: string; ox: number; oy: number } | null>(null);
-  const [canvasMeters, setCanvasMeters] = useState({ w: 20, h: 15 }); // 20m x 15m
+  const [canvasMeters, setCanvasMeters] = useState({ w: 20, h: 15 });
   const [zoom, setZoom] = useState(1);
   const [saved, setSaved] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -84,7 +82,6 @@ export default function AdminSeating() {
     setItems(prev => prev.map(i => {
       if (i.id !== id) return i;
       const updated = { ...i, ...updates };
-      // If dimensions change, update pixel sizes and regenerate chairs
       if (updates.width_cm || updates.height_cm || updates.capacity) {
         updated.width = (updates.width_cm || i.width_cm) * CM_TO_PX;
         updated.height = (updates.height_cm || i.height_cm) * CM_TO_PX;
@@ -100,11 +97,6 @@ export default function AdminSeating() {
     e.stopPropagation();
     setSelected(id);
     const item = items.find(i => i.id === id)!;
-    
-    // Scale the client coordinates based on zoom
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
     setDragging({ id, ox: e.clientX - item.x * zoom, oy: e.clientY - item.y * zoom });
   };
 
@@ -159,7 +151,6 @@ export default function AdminSeating() {
 
       <div className="seating-pro">
         <div className="seating-pro__sidebar">
-          {/* Canvas Settings */}
           <div className="seating-panel">
             <h3 className="t-label" style={{ marginBottom: '12px' }}>Dimensión del Lienzo</h3>
             <div className="form-row">
@@ -174,7 +165,6 @@ export default function AdminSeating() {
             </div>
           </div>
 
-          {/* Add Elements */}
           <div className="seating-panel">
             <h3 className="t-label" style={{ marginBottom: '12px' }}>Agregar Elementos</h3>
             <div className="seating-templates">
@@ -187,7 +177,6 @@ export default function AdminSeating() {
             </div>
           </div>
 
-          {/* Inspector */}
           {selectedItem && (
             <div className="seating-panel seating-inspector reveal-up">
               <h3 className="t-label" style={{ marginBottom: '16px', color: 'var(--c-wine)' }}>Inspector de Elemento</h3>
@@ -257,11 +246,9 @@ export default function AdminSeating() {
               transformOrigin: 'top left'
             }}
             onClick={(e) => {
-              // Only deselect if clicking exactly the canvas background
               if (e.target === e.currentTarget) setSelected(null);
             }}
           >
-            {/* Real scale grid */}
             <svg className="seating-grid-svg" width="100%" height="100%">
               <defs>
                 <pattern id="grid-pro" width={50} height={50} patternUnits="userSpaceOnUse">
@@ -285,24 +272,29 @@ export default function AdminSeating() {
                     borderRadius: item.shape === 'circle' ? '50%' : item.shape === 'capsule' ? '100px' : '4px',
                     transform: `rotate(${item.rotation}deg)`,
                     cursor: dragging?.id === item.id ? 'grabbing' : 'grab',
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}
                   onMouseDown={e => handleMouseDown(e, item.id)}
                 >
-                  <div className="seating-el__info">
-                    <span className="seating-el__label">{item.label}</span>
-                    <span className="seating-el__ms">{item.width_cm}x{item.height_cm}cm</span>
+                  <div className="seating-el__info" style={{ textAlign: 'center', pointerEvents: 'none' }}>
+                    <span className="seating-el__label" style={{ fontWeight: 700, fontSize: '0.65rem' }}>{item.label}</span>
+                    <br />
+                    <span className="seating-el__ms" style={{ fontSize: '0.5rem', opacity: 0.5 }}>{item.width_cm}x{item.height_cm}cm</span>
                   </div>
 
-                  {/* Chairs */}
                   {item.chairs?.map((chair) => (
                     <div 
                       key={chair.id} 
                       className="seating-chair"
                       style={{
+                        position: 'absolute',
                         transform: `rotate(${chair.rotation}deg) translateY(-${(item.width/2) + 10}px)`
                       }}
                     >
-                      <div className="seating-chair__dot" />
+                      <div className="seating-chair__dot" style={{ width: '10px', height: '10px', background: 'white', border: '1px solid rgba(0,0,0,0.2)', borderRadius: '50%' }} />
                     </div>
                   ))}
                 </div>
